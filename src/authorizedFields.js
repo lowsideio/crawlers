@@ -37,6 +37,6 @@ module.exports = [
   'overall_width',
   'ground_clearance',
   'wheelbase',
-  'fuel_capacity®',
+  'fuel_capacity',
   'starter',
 ];

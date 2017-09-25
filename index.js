@@ -31,13 +31,16 @@ async function run() {
       delete data[key];
       return 1;
     }
-    data[key] = settings.normalize()[key](data[key]);
+    if (settings.normalize()[key]) {
+      data[key] = settings.normalize()[key](data[key]);
+    }
     return 0;
   });
 
-  console.log('data', data);
-
   // save data
+  await models.Motorcycle.create({
+    ...data,
+  });
 
   // kill browser instance
   browser.close();
