@@ -9,7 +9,7 @@ module.exports = {};
 module.exports.Sequelize = Sequelize;
 module.exports.sequelize = new Sequelize('mainDB', null, null, {
   dialect: 'sqlite',
-  storage: './test.sqlite',
+  storage: './data/db.sqlite',
 });
 const models = {};
 module.exports.models = models;
