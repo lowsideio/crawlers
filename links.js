@@ -1,10 +1,16 @@
 /* eslint no-loop-func: 0 */
+/* eslint no-await-in-loop: 0 */
+/* eslint no-continue: 0 */
 
 const puppeteer = require('puppeteer');
+const readlineSync = require('readline-sync');
 
 const models = require('./src/models');
 
-// import selectors
+
+const exit = () => process.exit();
+
+// this is a workspace settings — quite obscure and won't be disclosed anytime soon
 const settings = require('../crawlers_settings/bikez');
 
 async function run() {
@@ -14,18 +20,37 @@ async function run() {
   // create a new page
   const page = await browser.newPage();
 
-  // go to page
-  await page.goto(settings.links.startPage);
+  // go to first page
+  let nextPage = settings.links.nextPage();
+  // till there is no page to explore
+  while (nextPage) {
+    // we are doing this manually .. gently :)
+    const ok = readlineSync.question(`fetch ${nextPage} ?\n`);
 
-  // get page data
-  const data = await settings.links.getFrom(page);
+    // stop script
+    if (ok === 'e') { exit(); }
+    // skip page
+    if (ok !== 'y') { nextPage = settings.links.nextPage(); continue; }
 
-  const promises = data.map(link =>
-    models.Link.create({ workspace: settings.workspace, last_visited: null, link }),
-  );
+    // load page
+    await page.goto(nextPage);
 
-  await Promise.all(promises);
+    // get page data
+    const data = await settings.links.getFrom(page);
 
+    // retrieve all links
+    const promises = data.map(async (link) => {
+      const existingLink = await models.Link.findOne({ raw: true, where: { link } });
+      if (!existingLink) {
+        await models.Link.create({ workspace: settings.workspace, last_visited: null, link });
+      }
+      return 1;
+    });
+
+    await Promise.all(promises);
+
+    nextPage = settings.links.nextPage();
+  }
   // kill browser instance
   browser.close();
 }
