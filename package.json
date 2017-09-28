@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "initdb": "node scripts/initdb.js"
+    "initdb": "node scripts/initdb.js",
+    "export-bikes":"./scripts/exportBikesCSV.sh"
   },
   "repository": {
     "type": "git",
