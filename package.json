@@ -9,7 +9,8 @@
     "initdb": "node scripts/initdb.js",
     "export-bikes": "./scripts/exportBikesCSV.sh",
     "export-links": "./scripts/exportLinksCSV.sh",
-    "import-links": "./scripts/importLinksSQLITE.sh"
+    "import-links": "./scripts/importLinksSQLITE.sh",
+    "import-bikes": "./scripts/importBikesSQLITE.sh"
   },
   "repository": {
     "type": "git",
