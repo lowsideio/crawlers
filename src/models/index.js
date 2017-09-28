@@ -32,3 +32,4 @@ Object.keys(models).forEach((modelName) => {
 
 
 module.exports.Motorcycle = models.Motorcycle;
+module.exports.Link = models.Link;
