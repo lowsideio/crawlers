@@ -1,6 +1,7 @@
 
 module.exports = function MotorcycleConstructor(sequelize, DataTypes) {
   const Motorcycle = sequelize.define('Motorcycle', {
+    brand: DataTypes.STRING,
     model: DataTypes.STRING,
     year: DataTypes.STRING,
     category: DataTypes.STRING,
@@ -41,6 +42,7 @@ module.exports = function MotorcycleConstructor(sequelize, DataTypes) {
     wheelbase: DataTypes.STRING,
     fuel_capacity: DataTypes.STRING,
     starter: DataTypes.STRING,
+    _source: DataTypes.STRING,
   });
 
   return Motorcycle;
