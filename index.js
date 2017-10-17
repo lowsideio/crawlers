@@ -56,7 +56,7 @@ async function run() {
       /* ********************* */
       /* AUTOMATIC
       /* ********************* */
-      await sleep(((Math.random() * 500000000) % 15000) + 4000);
+      await sleep(((Math.random() * 500000000) % 1000) + 1000);
 
       // navigate to page
       await page.goto(linkObject.link);
@@ -88,10 +88,10 @@ async function run() {
 
       if (!existingMotorcycle) {
         log(`create\t${data.model}`);
-        await models.Motorcycle.create({ ...data, source: linkObject.link });
+        await models.Motorcycle.create({ ...data, _source: linkObject.link });
       } else {
         log(`update\t${data.model}`);
-        await existingMotorcycle.update({ ...data, source: linkObject.link });
+        await existingMotorcycle.update({ ...data, _source: linkObject.link });
       }
       await linkObject.update({ last_visited: (new Date()).toISOString() });
     } catch (e) {
