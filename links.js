@@ -13,11 +13,11 @@ const exit = () => process.exit();
 // this is a workspace settings — quite obscure and won't be disclosed anytime soon
 const settings = require('../crawlers_settings/bikez');
 
-const category = 'SPORT';
+const category = 'NAKED';
 
 async function run() {
   // create browser instance
-  const browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox'] });
+  const browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
 
   // create a new page
   const page = await browser.newPage();
@@ -27,12 +27,12 @@ async function run() {
   // till there is no page to explore
   while (nextPage) {
     // we are doing this manually .. gently :)
-    const ok = readlineSync.question(`fetch ${nextPage} ?\n`);
-
-    // stop script
-    if (ok === 'e') { exit(); }
-    // skip page
-    if (ok !== 'y') { nextPage = settings.links.nextPage(category); continue; }
+    // const ok = readlineSync.question(`fetch ${nextPage} ?\n`);
+    //
+    // // stop script
+    // if (ok === 'e') { exit(); }
+    // // skip page
+    // if (ok !== 'y') { nextPage = settings.links.nextPage(category); continue; }
 
     // load page
     await page.goto(nextPage);
